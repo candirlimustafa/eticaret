@@ -1,0 +1,46 @@
+.magaza-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .urun-listesi {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .urun-karti {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .urun-karti h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .urun-karti p {
+    margin: 5px 0;
+  }
+  
+  .sepete-ekle-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .sepete-ekle-btn:hover {
+    background-color: #45a049;
+  }
+  
