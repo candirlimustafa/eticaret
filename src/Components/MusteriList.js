@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 const MusteriList = () => {
-  const [musteriler, setMusteriler] = useState([]);
+  const [sepet, setSepet] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/musteriler')
+    axios.get('http://localhost:3000/api/sepet')
       .then(response => {
-        setMusteriler(response.data);
+        setSepet(response.data);
       })
       .catch(error => {
         console.error('There was an error fetching the customers!', error);
@@ -19,9 +20,9 @@ const MusteriList = () => {
     <div>
       <h1>Müşteri Listesi</h1>
       <ul>
-        {musteriler.map(musteri => (
-          <li key={musteri.musteriID}>
-            {musteri.kullaniciAd} - {musteri.mail}
+        {sepet.map(sepet => (
+          <li key={sepet.musteriID}>
+            {sepet.kullaniciAd} - {sepet.mail}
           </li>
         ))}
       </ul>

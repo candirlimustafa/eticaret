@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CSS/Magaza.css'; // CSS dosyasını import ettik
 
-const Erkek = () => {
+const Kadın = ({ musteriID }) => {
   const [urunler, setUrunler] = useState([]);
   const [adetler, setAdetler] = useState({});
 
@@ -13,8 +13,8 @@ const Erkek = () => {
   const fetchUrunler = async () => {
     try {
       const response = await axios.get('http://localhost:3000/api/urunler');
-      const erkekUrunler = response.data.filter(urun => urun.urunKategori === 'erkek');
-      setUrunler(erkekUrunler);
+      const kadınUrunler = response.data.filter(urun => urun.urunKategori === 'kadın');
+      setUrunler(kadınUrunler);
     } catch (error) {
       console.error('Ürünleri getirirken bir hata oluştu:', error);
     }
@@ -23,7 +23,7 @@ const Erkek = () => {
   const handleAdetDegistir = (urunID, degisim) => {
     setAdetler(prevState => ({
       ...prevState,
-      [urunID]: (prevState[urunID] || 1) + degisim
+      [urunID]: Math.max((prevState[urunID] || 1) + degisim, 1) // Adet en az 1 olabilir
     }));
   };
 
@@ -32,6 +32,7 @@ const Erkek = () => {
 
     try {
       await axios.post('http://localhost:3000/api/sepet', {
+        musteriID,
         urunID,
         urunAdet
       });
@@ -41,30 +42,20 @@ const Erkek = () => {
     }
   };
 
-  const handleSepetiOnayla = async () => {
-    try {
-      await axios.post('http://localhost:3000/api/sepet/onayla', { sepet: urunler });
-      alert('Siparişiniz alındı ve veritabanına kaydedildi.');
-      // Sepeti sıfırla veya güncelleme işlemi yapılabilir
-      setUrunler([]);
-      setAdetler({});
-    } catch (error) {
-      console.error('Siparişi onaylarken bir hata oluştu:', error);
-    }
-  };
-
   return (
     <div className="magaza-container">
-      <h1>Erkek Ürünleri</h1>
+      <h1>kadın Ürünleri</h1>
       <div className="urun-listesi">
         {urunler.map(urun => (
           <div key={urun.urunID} className="urun-karti">
-            <img src={urun.urunResim} alt={urun.urunAd} className="urun-resim" />
             <h2>{urun.urunAd}</h2>
             <p>Adet: {urun.urunAdet}</p>
             <p>Fiyat: {urun.urunFiyat}</p>
             <div className="adet-kontrol">
-              <button onClick={() => handleAdetDegistir(urun.urunID, -1)} disabled={adetler[urun.urunID] <= 1}>-</button>
+              <button 
+                onClick={() => handleAdetDegistir(urun.urunID, -1)} 
+                disabled={adetler[urun.urunID] <= 1}
+              >-</button>
               <span>{adetler[urun.urunID] || 1}</span>
               <button onClick={() => handleAdetDegistir(urun.urunID, 1)}>+</button>
             </div>
@@ -72,9 +63,8 @@ const Erkek = () => {
           </div>
         ))}
       </div>
-      <button onClick={handleSepetiOnayla} className="sepeti-onayla-btn">Sepeti Onayla</button>
     </div>
   );
 };
 
-export default Erkek;
+export default Kadın;
