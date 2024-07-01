@@ -1,8 +1,8 @@
 import './App.css';
 import React from 'react'
 import Navbar from './Components/Navbar/Navbar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import {Magaza} from './Pages/Magaza.jsx';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Anasayfa from './Pages/anasayfa.jsx';
 import { MagazaKategori } from './Pages/MagazaKategori.jsx';
 import Urunler from './Pages/Urun.jsx';
 import Sepet from './Pages/Cart.jsx';
@@ -20,15 +20,24 @@ import Cocuk from './Pages/Cocuk.jsx';
 import MusteriList from './Components/MusteriList.js';
 import Siparislerim from './Pages/siparis.jsx';
 import Siparisler from './Pages/siparis.jsx';
+import SiparisDetay from './Pages/siparisdetay.jsx';
+import AdminGiris from './Pages/admingiris.jsx';
+import AdminUrunEkle from './Pages/adminsayfa.jsx';
 
 
 function App() {
-  const musteriID = 1;
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = React.useState(true);
+
+  const handleAdminLogin = () => {
+    setIsAdminLoggedIn(true);
+  };
+
   return (
     <div>
       <BrowserRouter>
       <Navbar/>
       <Routes>
+      <Route path='/anasayfa' element={<Anasayfa/>}></Route>
         <Route path='/erkek' element={<Erkek/>}></Route>
         <Route path='/kadın' element={<Kadın/>}></Route>
         <Route path='/cocuk' element={<Cocuk/>}></Route>
@@ -42,6 +51,14 @@ function App() {
         <Route path='/giris' element={<Giris/>}/>
         <Route path="/logout" element={<Logout />} /> 
         <Route path="/siparislerim" element={<Siparisler />} />
+         <Route path="/siparisler/:siparisID" element={<SiparisDetay />} />
+         <Route path="/admin/login" element={<AdminGiris onAdminLogin={handleAdminLogin} />} />
+          {isAdminLoggedIn ? (
+            <Route path="/admin-urun-ekle" element={<AdminUrunEkle />} />
+          ) : (
+            <Route path="/admin-urun-ekle" element={<Navigate to="/admin/login" />} />
+          )}
+          <Route path="/admin-urun-ekle" element={<AdminUrunEkle />} />
       </Routes>
       <Footer/>
       </BrowserRouter>

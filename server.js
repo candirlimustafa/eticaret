@@ -93,9 +93,6 @@ app.get('/api/sepet', async (req, res) => {
 });
 
 
-
-
-// Sepete ekleme endpoint'i
 // Sepete ekleme endpoint'i
 app.post('/api/sepet', async (req, res) => {
   const { urunID, urunAdet } = req.body;
@@ -130,6 +127,8 @@ app.delete('/api/sepet/:sepetID', async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+
 // Endpoint to confirm order and update stock
 app.post('/api/sepet/onayla', async (req, res) => {
   const sepet = req.body.sepet;
@@ -177,7 +176,6 @@ app.post('/api/sepet/onayla', async (req, res) => {
   }
 });
 
-
 // Siparişleri getiren endpoint
 app.get('/api/siparisler', async (req, res) => {
   try {
@@ -196,8 +194,47 @@ app.get('/api/siparisler', async (req, res) => {
   }
 });
 
+// Kullanıcı giriş endpoint'i
+app.post('/api/admin/login', async (req, res) => {
+  const { adminKullanici, adminSifre } = req.body;
+  try {
+    const pool = await connectToDatabase();
+    const result = await pool.request()
+      .input('adminKullanici', sql.NVarChar, adminKullanici)
+      .input('adminSifre', sql.NVarChar, adminSifre)
+      .query('SELECT * FROM admin WHERE adminKullanici = @adminKullanici AND adminSifre = @adminSifre');
 
+    if (result.recordset.length > 0) {
+      // Kullanıcı doğrulandı, başarılı giriş
+      res.status(200).json({ message: 'Giriş başarılı', kullanici: result.recordset[0] });
+    } else {
+      // Kullanıcı bulunamadı veya şifre hatalı
+      res.status(401).json({ message: 'Kullanıcı adı veya şifre yanlış' });
+    }
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
+// Ürün ekleme endpoint'i
+app.post('/api/admin/urunler', async (req, res) => {
+  const { urunKategori, urunAd, urunAdet, urunFiyat, urunResim } = req.body;
+  try {
+    const pool = await connectToDatabase();
+    await pool.request()
+    .input('urunKategori', sql.NVarChar, urunKategori)
+    .input('urunAd', sql.NVarChar, urunAd)
+    .input('urunAdet', sql.Int, urunAdet)
+    .input('urunFiyat', sql.Decimal, urunFiyat)
+    .input('urunResim', sql.NVarChar, urunResim)
+    .query('INSERT INTO urunler (urunKategori, urunAd, urunAdet, urunFiyat, urunResim) VALUES (@urunKategori, @urunAd, @urunAdet, @urunFiyat, @urunResim)');
+    
+    res.status(201).send('Ürün başarıyla eklendi');
+  } catch (err) {
+    console.error('Ürün eklerken bir hata oluştu:', err.message);
+    res.status(500).send('Ürün eklerken bir hata oluştu');
+  }
+});
 
 
 

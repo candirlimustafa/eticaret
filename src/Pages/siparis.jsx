@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './CSS/Siparisler.css';
 
 const Siparisler = () => {
   const [siparisler, setSiparisler] = useState([]);
+  const navigate = useNavigate(); // useNavigate kancasını kullanarak yönlendirme yapmak için
 
   useEffect(() => {
     fetchSiparisler();
@@ -18,16 +20,24 @@ const Siparisler = () => {
     }
   };
 
+  const handleDetayGoster = (siparisID) => {
+    // Detay sayfasına yönlendirme yap
+    navigate(`/siparisler/${siparisID}`);
+  };
+
   return (
     <div className="siparisler-container">
       <h1>Siparişlerim</h1>
       {siparisler.length > 0 ? (
         <div className="siparis-listesi">
-          {siparisler.map(siparis => (
+          {siparisler.map((siparis) => (
             <div key={siparis.siparisID} className="siparis-karti">
               <p>Sipariş ID: {siparis.siparisID}</p>
               <p>Müşteri ID: {siparis.musteriID}</p>
               <p>Sipariş Tarihi: {new Date(siparis.siparisTarih).toLocaleDateString()}</p>
+              <button onClick={() => handleDetayGoster(siparis.siparisID)} className="detay-btn">
+                Detaylar
+              </button>
             </div>
           ))}
         </div>

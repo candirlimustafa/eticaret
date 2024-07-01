@@ -5,6 +5,7 @@ import './CSS/Magaza.css'; // CSS dosyasını import ettik
 const Erkek = () => {
   const [urunler, setUrunler] = useState([]);
   const [adetler, setAdetler] = useState({});
+  const [bedenler, setBedenler] = useState({});
 
   useEffect(() => {
     fetchUrunler();
@@ -27,29 +28,26 @@ const Erkek = () => {
     }));
   };
 
+  const handleBedenDegistir = (urunID, beden) => {
+    setBedenler(prevState => ({
+      ...prevState,
+      [urunID]: beden
+    }));
+  };
+
   const handleSepeteEkle = async (urunID) => {
     const urunAdet = adetler[urunID] || 1; // Eğer adet belirlenmediyse varsayılan olarak 1
+    const urunBeden = bedenler[urunID] || 'S'; // Eğer beden belirlenmediyse varsayılan olarak S
 
     try {
       await axios.post('http://localhost:3000/api/sepet', {
         urunID,
-        urunAdet
+        urunAdet,
+        urunBeden
       });
       console.log(`Ürün ID'si ${urunID} olan ürün sepete eklendi.`);
     } catch (error) {
       console.error('Sepete eklerken bir hata oluştu:', error);
-    }
-  };
-
-  const handleSepetiOnayla = async () => {
-    try {
-      await axios.post('http://localhost:3000/api/sepet/onayla', { sepet: urunler });
-      alert('Siparişiniz alındı ve veritabanına kaydedildi.');
-      // Sepeti sıfırla veya güncelleme işlemi yapılabilir
-      setUrunler([]);
-      setAdetler({});
-    } catch (error) {
-      console.error('Siparişi onaylarken bir hata oluştu:', error);
     }
   };
 
@@ -68,11 +66,18 @@ const Erkek = () => {
               <span>{adetler[urun.urunID] || 1}</span>
               <button onClick={() => handleAdetDegistir(urun.urunID, 1)}>+</button>
             </div>
+            <div className="beden-secim">
+              <label>Beden: </label>
+              <select onChange={(e) => handleBedenDegistir(urun.urunID, e.target.value)}>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+              </select>
+            </div>
             <button onClick={() => handleSepeteEkle(urun.urunID)} className="sepete-ekle-btn">Sepete Ekle</button>
           </div>
         ))}
       </div>
-      <button onClick={handleSepetiOnayla} className="sepeti-onayla-btn">Sepeti Onayla</button>
     </div>
   );
 };

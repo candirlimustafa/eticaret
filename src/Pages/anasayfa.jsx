@@ -5,7 +5,7 @@ import Offers from '../Components/Offers/Offers'
 import NewCollections from '../Components/NewCollections/NewCollections'
 import NewsLetter from '../Components/NewsLetter/NewsLetter'
 
-export const Magaza = () => {
+export const Anasayfa = () => {
   return (
     <div>
       <Hero/>
@@ -16,4 +16,6 @@ export const Magaza = () => {
     </div>
   )
 }
+
+export default Anasayfa;
 
