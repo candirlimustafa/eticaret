@@ -1,0 +1,29 @@
+.kargo-listesi-container {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .kargo-listesi {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .kargo-listesi th, .kargo-listesi td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .kargo-listesi th {
+    background-color: #f2f2f2;
+  }
+  
+  .kargo-listesi tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .kargo-listesi tr:hover {
+    background-color: #ddd;
+  }
+  

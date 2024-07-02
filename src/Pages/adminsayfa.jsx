@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import './CSS/AdminSayfa.css'; // Import CSS file
 
 const AdminUrunEkle = () => {
   const [formData, setFormData] = useState({

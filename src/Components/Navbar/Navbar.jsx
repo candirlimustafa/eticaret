@@ -43,6 +43,12 @@ const Navbar = () => {
         <Link to='/admin/login' className='nav-link'>
           Admin
         </Link>
+        <Link to='/iadeler' className='nav-link'>
+          İadeler
+        </Link>
+        <Link to='/kargo' className='nav-link'>
+          Kargo Takip
+        </Link>
         <div className='nav-cart-count'>0</div>
       </div>
     </div>

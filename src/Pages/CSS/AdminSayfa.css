@@ -1,0 +1,54 @@
+/* AdminUrunEkle.css */
+
+.admin-urun-ekle {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #829cb1;
+  }
+  
+  .admin-urun-ekle h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .admin-urun-ekle-fields {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .admin-urun-ekle-fields input {
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .admin-urun-ekle button[type="submit"] {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #518284;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-urun-ekle button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  .admin-urun-ekle p {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #dfeae2;
+  }
+  

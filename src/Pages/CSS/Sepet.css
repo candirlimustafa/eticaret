@@ -1,53 +1,73 @@
+/* CSS/Sepet.css */
+
 .sepet-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .sepet-container h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .urun-listesi {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .urun-karti {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .urun-karti h2 {
-    margin: 0;
-    font-size: 1.2em;
-  }
-  
-  .urun-karti p {
-    margin: 0;
-  }
-  
-  .sepetten-cikar-btn {
-    padding: 5px 10px;
-    background-color: #ff6b6b;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .sepetten-cikar-btn:hover {
-    background-color: #ff4c4c;
-  }
-  
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.urun-listesi {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.urun-karti {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.urun-karti img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.urun-detay {
+  padding-top: 10px;
+}
+
+.urun-detay h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.urun-detay p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.sepetten-cikar-btn, .sepeti-onayla-btn {
+  background-color: #e78989;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.sepetten-cikar-btn:hover, .sepeti-onayla-btn:hover {
+  background-color: #e64545;
+}
+
+.sepeti-onayla-btn {
+  background-color: #80b9bb;
+  margin-left: 10px;
+}
+
+.sepeti-onayla-btn:hover {
+  background-color: #518284;
+}

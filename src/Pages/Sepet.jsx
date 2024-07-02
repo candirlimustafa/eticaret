@@ -39,7 +39,8 @@ const Sepet = () => {
 
   const handleSepetiOnayla = async () => {
     try {
-      await axios.post('http://localhost:3000/api/sepet/onayla', { sepet });
+      const musteriID = 1; // Set this to the actual customer ID in your application
+      await axios.post('http://localhost:3000/api/sepet/onayla', { sepet, musteriID });
       alert('Siparişiniz alındı');
       fetchSepet(); // Sepeti güncelle
     } catch (error) {

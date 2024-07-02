@@ -5,7 +5,7 @@ import './CSS/Siparisler.css';
 
 const Siparisler = () => {
   const [siparisler, setSiparisler] = useState([]);
-  const navigate = useNavigate(); // useNavigate kancasını kullanarak yönlendirme yapmak için
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchSiparisler();
@@ -21,8 +21,15 @@ const Siparisler = () => {
   };
 
   const handleDetayGoster = (siparisID) => {
-    // Detay sayfasına yönlendirme yap
     navigate(`/siparisler/${siparisID}`);
+  };
+
+  const handleIadeEt = (siparisID) => {
+    setSiparisler((prevSiparisler) =>
+      prevSiparisler.map((siparis) =>
+        siparis.siparisID === siparisID ? { ...siparis, iadeEdildi: true } : siparis
+      )
+    );
   };
 
   return (
@@ -31,12 +38,16 @@ const Siparisler = () => {
       {siparisler.length > 0 ? (
         <div className="siparis-listesi">
           {siparisler.map((siparis) => (
-            <div key={siparis.siparisID} className="siparis-karti">
+            <div key={siparis.siparisID} className={`siparis-karti ${siparis.iadeEdildi ? 'iade-edildi' : ''}`}>
               <p>Sipariş ID: {siparis.siparisID}</p>
               <p>Müşteri ID: {siparis.musteriID}</p>
               <p>Sipariş Tarihi: {new Date(siparis.siparisTarih).toLocaleDateString()}</p>
+              {siparis.iadeEdildi && <p className="iade-edildi-mesaj">Bu sipariş iade edildi</p>}
               <button onClick={() => handleDetayGoster(siparis.siparisID)} className="detay-btn">
                 Detaylar
+              </button>
+              <button onClick={() => handleIadeEt(siparis.siparisID)} className="iade-btn" disabled={siparis.iadeEdildi}>
+                İade Et
               </button>
             </div>
           ))}

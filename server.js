@@ -194,7 +194,7 @@ app.get('/api/siparisler', async (req, res) => {
   }
 });
 
-// Kullanıcı giriş endpoint'i
+// admin giriş endpoint'i
 app.post('/api/admin/login', async (req, res) => {
   const { adminKullanici, adminSifre } = req.body;
   try {
@@ -217,17 +217,17 @@ app.post('/api/admin/login', async (req, res) => {
 });
 
 // Ürün ekleme endpoint'i
-app.post('/api/admin/urunler', async (req, res) => {
+app.post('/api/admin/urun-ekle', async (req, res) => {
   const { urunKategori, urunAd, urunAdet, urunFiyat, urunResim } = req.body;
   try {
     const pool = await connectToDatabase();
     await pool.request()
-    .input('urunKategori', sql.NVarChar, urunKategori)
-    .input('urunAd', sql.NVarChar, urunAd)
-    .input('urunAdet', sql.Int, urunAdet)
-    .input('urunFiyat', sql.Decimal, urunFiyat)
-    .input('urunResim', sql.NVarChar, urunResim)
-    .query('INSERT INTO urunler (urunKategori, urunAd, urunAdet, urunFiyat, urunResim) VALUES (@urunKategori, @urunAd, @urunAdet, @urunFiyat, @urunResim)');
+      .input('urunKategori', sql.NVarChar, urunKategori)
+      .input('urunAd', sql.NVarChar, urunAd)
+      .input('urunAdet', sql.Int, urunAdet)
+      .input('urunFiyat', sql.Decimal, urunFiyat)
+      .input('urunResim', sql.NVarChar, urunResim)
+      .query('INSERT INTO urunler (urunKategori, urunAd, urunAdet, urunFiyat, urunResim) VALUES (@urunKategori, @urunAd, @urunAdet, @urunFiyat, @urunResim)');
     
     res.status(201).send('Ürün başarıyla eklendi');
   } catch (err) {
@@ -235,6 +235,60 @@ app.post('/api/admin/urunler', async (req, res) => {
     res.status(500).send('Ürün eklerken bir hata oluştu');
   }
 });
+
+// İade işlemi endpoint'i
+app.post('/api/iade', async (req, res) => {
+  const { siparisID, iadeTarih } = req.body;
+
+  try {
+    const pool = await connectToDatabase();
+    const request = pool.request();
+    
+    const query = `
+      INSERT INTO iade (siparisID, iadeTarih)
+      VALUES (@siparisID, @iadeTarih)`;
+
+    await request
+      .input('siparisID', sql.Int, siparisID)
+      .input('iadeTarih', sql.DateTime, new Date(iadeTarih)) // Assuming iadeTarih is a valid date string or Date object
+      .query(query);
+
+    res.status(201).send('İade işlemi başarıyla tamamlandı.');
+  } catch (err) {
+    console.error('İade eklerken bir hata oluştu:', err.message);
+    res.status(500).send('İade işlemi sırasında bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+  }
+});
+
+
+// İadeleri getiren endpoint
+app.get('/api/iade', async (req, res) => {
+  try {
+    const pool = await connectToDatabase();
+    const result = await pool.request().query(`
+      SELECT iadeID, siparisID, iadeTarih
+      FROM iade
+    `);
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).send('İadeleri getirirken bir hata oluştu: ' + err.message);
+  }
+});
+
+
+// Endpoint to fetch kargolar from the 'kargo' table
+app.get('/api/kargo', async (req, res) => {
+  try {
+    const pool = await connectToDatabase();
+    const result = await pool.request().query('SELECT takipID, siparisID, durum FROM kargo'); // 'durum *' yerine 'durum' olmalı
+    res.json(result.recordset);
+  } catch (error) {
+    console.error('Kargoları getirirken bir hata oluştu:', error.message);
+    res.status(500).send('Kargoları getirirken bir hata oluştu.');
+  }
+});
+
+
 
 
 

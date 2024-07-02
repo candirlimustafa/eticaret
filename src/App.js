@@ -4,8 +4,8 @@ import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Anasayfa from './Pages/anasayfa.jsx';
 import { MagazaKategori } from './Pages/MagazaKategori.jsx';
-import Urunler from './Pages/Urun.jsx';
-import Sepet from './Pages/Cart.jsx';
+import Urunler from './Pages/Erkek.jsx';
+import Sepet from './Pages/Sepet.jsx';
 import { GirisYap } from './Pages/GirisYap.jsx';
 import Footer from './Components/Footer/Footer.jsx';
 import men_benner from './Components/Assets/banner_mens.png'
@@ -14,7 +14,7 @@ import kid_banner from './Components/Assets/banner_kids.png'
 import { Giris } from './Pages/giris.jsx';
 import Logout from './Pages/Logout.jsx';
 import UrunDetay from './Pages/urundetay.jsx';
-import Erkek from './Pages/Urun.jsx';
+import Erkek from './Pages/Erkek.jsx';
 import Kadın from './Pages/Kadın.jsx';
 import Cocuk from './Pages/Cocuk.jsx';
 import MusteriList from './Components/MusteriList.js';
@@ -23,6 +23,8 @@ import Siparisler from './Pages/siparis.jsx';
 import SiparisDetay from './Pages/siparisdetay.jsx';
 import AdminGiris from './Pages/admingiris.jsx';
 import AdminUrunEkle from './Pages/adminsayfa.jsx';
+import Iadeler from './Pages/iade.jsx';
+import KargoListesi from './Pages/Kargo.jsx';
 
 
 function App() {
@@ -59,6 +61,8 @@ function App() {
             <Route path="/admin-urun-ekle" element={<Navigate to="/admin/login" />} />
           )}
           <Route path="/admin-urun-ekle" element={<AdminUrunEkle />} />
+          <Route path="/iadeler" element={<Iadeler />} />
+          <Route path="/kargo" element={<KargoListesi />} />
       </Routes>
       <Footer/>
       </BrowserRouter>
