@@ -44,3 +44,5 @@ const KargoListesi = () => {
 };
 
 export default KargoListesi;
+
+

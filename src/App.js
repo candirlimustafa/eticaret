@@ -3,22 +3,15 @@ import React from 'react'
 import Navbar from './Components/Navbar/Navbar';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Anasayfa from './Pages/anasayfa.jsx';
-import { MagazaKategori } from './Pages/MagazaKategori.jsx';
 import Urunler from './Pages/Erkek.jsx';
 import Sepet from './Pages/Sepet.jsx';
 import { GirisYap } from './Pages/GirisYap.jsx';
 import Footer from './Components/Footer/Footer.jsx';
-import men_benner from './Components/Assets/banner_mens.png'
-import women_benner from './Components/Assets/banner_women.png'
-import kid_banner from './Components/Assets/banner_kids.png'
 import { Giris } from './Pages/giris.jsx';
 import Logout from './Pages/Logout.jsx';
-import UrunDetay from './Pages/urundetay.jsx';
 import Erkek from './Pages/Erkek.jsx';
 import Kadın from './Pages/Kadın.jsx';
 import Cocuk from './Pages/Cocuk.jsx';
-import MusteriList from './Components/MusteriList.js';
-import Siparislerim from './Pages/siparis.jsx';
 import Siparisler from './Pages/siparis.jsx';
 import SiparisDetay from './Pages/siparisdetay.jsx';
 import AdminGiris from './Pages/admingiris.jsx';
