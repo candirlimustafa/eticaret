@@ -2,8 +2,8 @@
 const sql = require('mssql');
 
 const config = {
-  user: 'admin', // MSSQL kullanıcı adı
-  password: '1234', // MSSQL şifresi
+  user: '', // MSSQL kullanıcı adı
+  password: '', // MSSQL şifresi
   server: 'localhost',
   database: 'demusto', // Kullanmak istediğiniz veritabanı
   options: {
